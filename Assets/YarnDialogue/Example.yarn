@@ -1,0 +1,32 @@
+title: Start
+tags: 
+colorID: 1
+position: 380,250
+---
+Sample Text Ahoy! This is a purposefully long body of text to test what happens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum.
+Progressing text works?
+[[Decision]]
+===
+title: Decision
+tags: 
+colorID: 0
+position: 755,306
+---
+What Choice Should you make?
+[[Go left|left]]
+[[Go right|right]]
+===
+title: left
+tags: 
+colorID: 0
+position: 875,86
+---
+Its Left!
+===
+title: right
+tags: 
+colorID: 0
+position: 1095,86
+---
+Its Right!
+===
