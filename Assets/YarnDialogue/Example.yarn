@@ -1,32 +1,32 @@
 title: Start
 tags: 
 colorID: 1
-position: 380,250
+position: 379,249
 ---
-Sample Text Ahoy! This is a purposefully long body of text to test what happens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum.
-Progressing text works?
+Sample Text Ahoy! 
 [[Decision]]
 ===
 title: Decision
 tags: 
 colorID: 0
-position: 755,306
+position: 763,304
 ---
 What Choice Should you make?
 [[Go left|left]]
-[[Go right|right]]
+[[ Go to a Different Room |DifferentRoom]]
 ===
 title: left
 tags: 
 colorID: 0
-position: 875,86
+position: 768,44
 ---
 Its Left!
 ===
-title: right
+title: DifferentRoom
 tags: 
 colorID: 0
 position: 1095,86
 ---
-Its Right!
+<<changeBackground BackgroundManager placeholder1>>
+It's a different room!
 ===
