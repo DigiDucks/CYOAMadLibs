@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 18067c9ce0960a24aae7d378e763d127
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 94073015eacc34c1d8fc6786e43d60ca, type: 3}
+  baseLanguageID: en-US
+  stringIDs: []
+  compilationStatus: 1
+  isSuccesfullyCompiled: 0
+  compilationErrorMessage: "Error on line 6 at position 31:\nmismatched input 'w'
+    expecting COMMAND_IF\r\nTest Battle Sequence Start~!<<wait 1>> \r\n                             
+    ^"
+  baseLanguage: {instanceID: 0}
+  localizations: []

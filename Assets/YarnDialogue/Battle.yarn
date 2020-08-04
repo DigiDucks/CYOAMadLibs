@@ -1,0 +1,138 @@
+title: Start
+tags: 
+colorID: 1
+position: -363,27
+---
+You see someone in the room!
+What do you do?
+[[Decision]]
+===
+title: Decision
+tags: 
+colorID: 0
+position: 37,76
+---
+[[Talk to Them|left]]
+[[Battle Them|startbattle]]
+[[ Offer Them Something |offer]]
+[[ Leave Them Be |DifferentRoom]]
+===
+title: left
+tags: 
+colorID: 0
+position: -51,-418
+---
+Its Left!
+<<startDialogue DialogueRunner Decision>>
+===
+title: DifferentRoom
+tags: 
+colorID: 0
+position: 252,-462
+---
+<<changeBackground BackgroundManager placeholder1>>
+It's a different room!
+===
+title: offer
+tags: 
+colorID: 0
+position: 689,-425
+---
+Empty Text
+===
+title: startbattle
+tags: 
+colorID: 0
+position: 605,40
+---
+*battle music starts*
+<<nextRoom BattleManager Decision>> 
+<<setEnemy BattleManager Sensei>> 
+[[Battle]]
+===
+title: Battle
+tags: 
+colorID: 0
+position: 949,244
+---
+Test Battle Sequence Start~!
+[[choose]]
+===
+title: round
+tags: 
+colorID: 0
+position: 1587,253
+---
+Which attack do you choose?
+[[ STR |STR]]
+[[ INT |INT]] 
+[[ CHA |CHA]]
+===
+title: STR
+tags: 
+colorID: 0
+position: 1592,-155
+---
+<<declareAttack BattleManager STR>>
+[[result]]
+===
+title: INT
+tags: 
+colorID: 0
+position: 1902,-152
+---
+<<declareAttack BattleManager INT>>
+[[result]]
+===
+title: CHA
+tags: 
+colorID: 0
+position: 2268,-171
+---
+<<declareAttack BattleManager CHA>>
+[[result]]
+===
+title: result
+tags: 
+colorID: 0
+position: 1603,-480
+---
+<<if $wonRound is 0>>
+{$playerName} beat {$enemyName} with a {$playerAttack}!
+<<if $endBattle>> 
+<<startDialogue DialogueRunner {$nextRoom}>>
+<<endif>> 
+[[ round ]]
+<<endif>>
+<< if $wonRound is 1>>
+{$enemyName} beat {$playerName} with a {$enemyAttack}!
+<<if $endBattle>>
+<<restartBattle BattleManager>>
+[[ choose ]]
+<<endif>> 
+[[ round ]]
+<<endif>>
+<<if $wonRound is 2>>
+It's a draw at {$playerAttack}
+[[ round ]]
+<<endif>>
+===
+title: Node_5
+tags: 
+colorID: 0
+position: -343,-327
+---
+Empty Text
+===
+title: choose
+tags: 
+colorID: 0
+position: 1261,249
+---
+<<pause ClickManager>> 
+<<chooseBattler BattleManager true>>
+Choose a fighter!
+<<chooseBattler BattleManager false>> 
+{$playerName} vs {$enemyName}!
+[[round]]
+===

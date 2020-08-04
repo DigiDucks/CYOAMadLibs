@@ -1,32 +1,49 @@
 title: Start
 tags: 
 colorID: 1
-position: 379,249
+position: -347,21
 ---
-Sample Text Ahoy! 
+You see someone in the room!
+What do you do?
 [[Decision]]
 ===
 title: Decision
 tags: 
 colorID: 0
-position: 763,304
+position: 37,76
 ---
-What Choice Should you make?
-[[Go left|left]]
-[[ Go to a Different Room |DifferentRoom]]
+[[Talk to Them|left]]
+[[Battle Them|startbattle]]
+[[ Offer Them Something |offer]]
+[[ Leave Them Be |DifferentRoom]]
 ===
 title: left
 tags: 
 colorID: 0
-position: 768,44
+position: 42,-184
 ---
 Its Left!
 ===
 title: DifferentRoom
 tags: 
 colorID: 0
-position: 1095,86
+position: 336,-247
 ---
 <<changeBackground BackgroundManager placeholder1>>
 It's a different room!
+===
+title: offer
+tags: 
+colorID: 0
+position: 576,135
+---
+Empty Text
+===
+title: startbattle
+tags: 
+colorID: 0
+position: 668,-144
+---
+*battle music starts*
+<<startDialogue DialogueRunner Battle>>
 ===
