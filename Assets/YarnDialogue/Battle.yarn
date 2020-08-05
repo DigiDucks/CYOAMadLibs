@@ -47,7 +47,7 @@ position: 605,40
 ---
 *battle music starts*
 <<nextRoom BattleManager Decision>> 
-<<setEnemy BattleManager Sensei>> 
+<<setEnemy BattleManager MagicSensei>> 
 [[Battle]]
 ===
 title: Battle

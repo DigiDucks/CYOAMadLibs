@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Yarn.Unity;
 
 public class BattleManager : MonoBehaviour
@@ -14,13 +15,12 @@ public class BattleManager : MonoBehaviour
     public OCStats currentBattler;
     public OCStats currentEnemy;
 
-    public OCStats[] allOCS;
+    Dictionary<string,OCStats> allOCS;
 
     [Header("GameObjects in the Scene")]
-    GameObject enemyOCObject;
-    GameObject dialogueOCObject;
-    Transform battlePosition;
-    Transform dialoguePosition;
+    public Transform battlePosition;
+    public Transform dialoguePosition;
+    public Image ocImage;
 
     [Header("Battle Stats")]
     public StatType playerAttackType;
@@ -54,6 +54,7 @@ public class BattleManager : MonoBehaviour
     {
         variableStorage = FindObjectOfType<InMemoryVariableStorage>();
         clickManager = FindObjectOfType<ClickManager>();
+        allOCS = FindObjectOfType<OCList>().allOCs;
     }
 
     public void ChooseBattler(OCStats stats)
@@ -72,13 +73,11 @@ public class BattleManager : MonoBehaviour
     [YarnCommand("setEnemy")]
     public void SetEnemy(string enemyName)
     {
-        switch (enemyName)
-        {
-            case "Sensei": currentEnemy = allOCS[0];
-                variableStorage.SetValue("$enemyName", "Sensei");
-                Debug.Log("Enemy set to " + currentEnemy.characterName);
-                break;
-        }
+        currentEnemy = allOCS[enemyName];
+        variableStorage.SetValue("$enemyName", enemyName);
+        ocImage.sprite = currentEnemy.portrait;
+        ocImage.transform.position = battlePosition.position; 
+        Debug.Log("Enemy set to " + currentEnemy.characterName);
     }
 
     [YarnCommand("chooseBattler")]

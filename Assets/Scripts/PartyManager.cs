@@ -6,21 +6,21 @@ public class PartyManager : MonoBehaviour
 {
     public Transform spawnArea;
 
-    public OCStats toAdd;
+    OCList ocList;
+
+    Dictionary<string,OCStats> allOCs;
 
     private void Start()
     {
-        int i= 0;
-        while( i < 5)
-        {
-            AddToParty(toAdd);
-            i++;
-        }
-
+        ocList = FindObjectOfType<OCList>();
+        allOCs = ocList.allOCs;
+        AddToParty(allOCs["Dragon"]);
+        AddToParty(allOCs["Mimic"]);
     }
 
     public void AddToParty(OCStats stats)
     {
+        Debug.Log("added " + stats.characterName + " to party");
         GameObject objToSpawn = Instantiate(Resources.Load<GameObject>("OCParty"), spawnArea);
         objToSpawn.GetComponent<OCStats>().SetStats(stats);
     }
