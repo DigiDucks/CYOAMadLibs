@@ -36,10 +36,10 @@ public class BattleManager : MonoBehaviour
     int wonRound = 0;
     bool endBattle = false;
     bool chooseBattler = false;
-    int enemyBuffValue = 1;
-    int playerBuffValue = 1;
-    int defaultEnemyBuffValue = 1;
-    int defautlPlayerBuffValue = 1;
+    int enemyBuffValue = 0;
+    int playerBuffValue = 0;
+    int defaultEnemyBuffValue = 0;
+    int defautlPlayerBuffValue =0;
 
     InMemoryVariableStorage variableStorage;
     ClickManager clickManager;

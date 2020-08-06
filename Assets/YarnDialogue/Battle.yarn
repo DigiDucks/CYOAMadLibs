@@ -95,16 +95,16 @@ position: 2268,-171
 title: result
 tags: 
 colorID: 0
-position: 1603,-480
+position: 1599,-483
 ---
 <<if $wonRound is 0>>
 {$playerName} beat {$enemyName} with a {$playerAttack}!
 <<if $endBattle>> 
 <<restartBattle BattleManager>>
 <<clearEnemy BattleManager>> 
-<<startDialogue DialogueRunner {$nextRoom}>>
-<<endif>> 
+<<else>>
 [[ round ]]
+<<endif>> 
 <<endif>>
 << if $wonRound is 1>>
 {$enemyName} beat {$playerName} with a {$enemyAttack}!
@@ -112,8 +112,9 @@ position: 1603,-480
 <<knockOut PartyManager {$playerName}>> 
 <<restartBattle BattleManager>>
 [[ choose ]]
-<<endif>> 
+<<else>>
 [[ round ]]
+<<endif>> 
 <<endif>>
 <<if $wonRound is 2>>
 It's a draw at {$playerAttack}
@@ -176,7 +177,7 @@ You are standing before the chest. All that remains is to open it.
 title: leaveTreasureFloor
 tags: 
 colorID: 0
-position: 31,1326
+position: 219,1186
 ---
 This is a demo, but in the real game you'd return to the hallway you came from
 [[TreasureFloor]]
@@ -196,7 +197,7 @@ tags:
 colorID: 0
 position: -342,702
 ---
-<<nextRoom BattleManager notFightDragon7>> 
+<<nextRoom ClickManager notFightDragon7>> 
 <<setEnemy BattleManager Dragon>>
 [[Battle]]
 ===
@@ -231,7 +232,7 @@ position: -658,307
 You join the half-dead warrior to face the mimic!
 Mimic's been weakened by the warrior!
 <<addTo PartyManager Skeleton>> 
-<<nextRoom BattleManager mimicDestroy>> 
+<<nextRoom ClickManager mimicDestroy>> 
 <<setEnemy BattleManager Mimic>>
 <<debuff BattleManger enemy>> 
 [[Battle]]
@@ -269,7 +270,7 @@ colorID: 0
 position: -460,958
 ---
 It's breathing, so not a chest. Probably best not to mess with it.
-[[ Take some of the loose gold |notFightDragon7]]
+[[ Take some of the loose gold |takegold7]]
 ===
 title: mimicBattle
 tags: 
@@ -277,7 +278,7 @@ colorID: 0
 position: 413,742
 ---
 You realize it wasn't a chest at all but a Mimic that wakes up after you've messed around with it!
-<<nextRoom BattleManager mimicDestroy>> 
+<<nextRoom ClickManager mimicDestroy>> 
 <<setEnemy BattleManager Mimic>>
 [[Battle]]
 ===
@@ -339,12 +340,15 @@ She smiles wickedly before lunging at you.
 title: wth4
 tags: 
 colorID: 0
-position: 1480,730
+position: 1479,728
 ---
 <<setDialogue BattleManager ReflectionWitch>> 
 <<changeBackground BackgroundManager reflectionroom>> 
 The woman turns her head towards you slowly, revealing her true appearance. eyes are frosted over, her skin is pale and riddled with scars. Her lips are a faint blue. Blotches of skin on across face have gone necrotic.
-She grins at you and rises from her stool with awkward and sporadic movements. “!klim sih htiw ti evol lliw ylraD, hciwdnas ytsat a ekam lliw hself ruoY”.
+She grins at you and rises from her stool with awkward and sporadic movements. 
+<<setDialogue BattleManager ReflectionWitch>> 
+<<changeBackground BackgroundManager reflectionroom>> 
+“!klim sih htiw ti evol lliw ylraD, hciwdnas ytsat a ekam lliw hself ruoY”.
 Her eyes widen. She licks her lips as she barrels towards you.
 [[reflectCombat]]
 ===
@@ -371,7 +375,24 @@ tags:
 colorID: 0
 position: 2053,485
 ---
-<<nextRoom BattleManager demoEnd>> 
+<<nextRoom ClickManager reflectionEnd>> 
 <<setEnemy BattleManager ReflectionWitch>>
 [[Battle]]
+===
+title: Hub
+tags: 
+colorID: 0
+position: 848,1398
+---
+Which floor do you want to test?
+[[ TreasureFloor |TreasureFloor]]
+[[ FloorOfReflection|FloorOfReflection]]
+===
+title: reflectionEnd
+tags: 
+colorID: 0
+position: 1651,497
+---
+The lady lets out a violent shriek as you deal the final blow. She is sent whirling in the air, and explodes like a firecracker. No trace of her is left behind.
+[[ demoEnd ]]
 ===
