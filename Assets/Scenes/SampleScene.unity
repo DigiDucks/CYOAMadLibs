@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 193162772}
   - component: {fileID: 193162771}
   - component: {fileID: 193162764}
+  - component: {fileID: 193162773}
   m_Layer: 0
   m_Name: OCList
   m_TagString: Untagged
@@ -583,13 +584,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ocArray:
-  - {fileID: 193162768}
-  - {fileID: 193162767}
-  - {fileID: 193162766}
-  - {fileID: 193162765}
-  - {fileID: 193162772}
-  - {fileID: 193162771}
-  - {fileID: 193162764}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &193162770
 Transform:
   m_ObjectHideFlags: 0
@@ -645,6 +647,28 @@ MonoBehaviour:
   CHA: 2
   addToPartyOnDeath: 1
   portrait: {fileID: 21300000, guid: f8cd6ae63c6ea5844a32a04bf6a85155, type: 3}
+  image: {fileID: 0}
+  nameText: {fileID: 0}
+  statText: {fileID: 0}
+--- !u!114 &193162773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193162763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fde36bdbf39c0b41a361674ec08fbdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: ReflectionWitch
+  archetype: 4
+  STR: 6
+  INT: 7
+  CHA: 2
+  addToPartyOnDeath: 1
+  portrait: {fileID: 21300000, guid: 370de621a257b744390c837657dc9164, type: 3}
   image: {fileID: 0}
   nameText: {fileID: 0}
   statText: {fileID: 0}
@@ -4126,6 +4150,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b8916a6b2dab17442a157f49e7600000, type: 3}
   - {fileID: 21300000, guid: 93709b3bf2f46794bb938aa36e78137b, type: 3}
   - {fileID: 21300000, guid: b8b0ba46754070545a515f6b20f910eb, type: 3}
+  - {fileID: 21300000, guid: 5af5de3b9af63cf4399afcfa49a94f91, type: 3}
+  - {fileID: 21300000, guid: 680870d8e245fe94b8a37883193d86f1, type: 3}
 --- !u!4 &1795160137
 Transform:
   m_ObjectHideFlags: 0
@@ -4968,7 +4994,7 @@ MonoBehaviour:
   textLanguage: English
   variableStorage: {fileID: 2038436318367658538}
   dialogueUI: {fileID: 2038436318367658539}
-  startNode: TreasureFloor
+  startNode: FloorOfReflection
   startAutomatically: 0
   onNodeStart:
     m_PersistentCalls:

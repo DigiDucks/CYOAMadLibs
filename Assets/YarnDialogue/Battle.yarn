@@ -229,10 +229,11 @@ colorID: 0
 position: -658,307
 ---
 You join the half-dead warrior to face the mimic!
+Mimic's been weakened by the warrior!
 <<addTo PartyManager Skeleton>> 
 <<nextRoom BattleManager mimicDestroy>> 
 <<setEnemy BattleManager Mimic>>
-<<debuff BattleManger>> 
+<<debuff BattleManger enemy>> 
 [[Battle]]
 ===
 title: leaveSkele10
@@ -300,4 +301,77 @@ position: 137,-941
 ---
 <<changeBackground BackgroundManager blank>>
 and they were never seen again... (refresh page to restart)
+===
+title: FloorOfReflection
+tags: 
+colorID: 0
+position: 1375,1203
+---
+<<changeBackground BackgroundManager reflectionroom>> 
+A spotlight from below the floor brightens the center of the room, focusing on a woman sitting on a wooden stool. Her back is facing towards you, allowing you to see her long black hair drape below the base of the stool, practically covering her entire body.
+She is staring into a large vanity mirror. When you look in the mirror you can see your distant reflection, but not hers.
+[[ "Hello?" |hello2]]
+[[ Attack her |attack3]]
+[[ Sneak up and tap her shoulder |attack3]]
+===
+title: hello2
+tags: 
+colorID: 0
+position: 1419,983
+---
+The woman’s left hand begins to extend towards the large mirror, raising it above her head. She drags her sharp nails from top to bottom across the mirror surface, making a horrific sound. 
+<<changeBackground BackgroundManager reflectionreveal>> 
+Her reflection is shown within the newly made scratch marks. She has a soft face with warm hazel eyes. Her lips are glossed over with a calming pink tone. She is faintly smiling but does not make eye contact.
+[[ "What the hell are you doing?" |wth4]]
+[[ Back away slowly |back6]]
+[[ Attack her |attack5]]
+===
+title: attack3
+tags: 
+colorID: 0
+position: 2348,789
+---
+Before you have the chance to approach, the woman jumps from her chair and turns to face you. Her eyes are frosted over, her smooth skin pale and her lips blue. 
+<<setDialogue BattleManager ReflectionWitch>> 
+She smiles wickedly before lunging at you.
+[[reflectCombat]]
+===
+title: wth4
+tags: 
+colorID: 0
+position: 1480,730
+---
+<<setDialogue BattleManager ReflectionWitch>> 
+<<changeBackground BackgroundManager reflectionroom>> 
+The woman turns her head towards you slowly, revealing her true appearance. eyes are frosted over, her skin is pale and riddled with scars. Her lips are a faint blue. Blotches of skin on across face have gone necrotic.
+She grins at you and rises from her stool with awkward and sporadic movements. “!klim sih htiw ti evol lliw ylraD, hciwdnas ytsat a ekam lliw hself ruoY”.
+Her eyes widen. She licks her lips as she barrels towards you.
+[[reflectCombat]]
+===
+title: back6
+tags: 
+colorID: 0
+position: 1997,1091
+---
+You step back out of the room, maybe for the best.
+This is a demo, but in the real game you'd return to the hallway you came from
+[[FloorOfReflection]]
+===
+title: attack5
+tags: 
+colorID: 0
+position: 1968,746
+---
+You charge towards her, but in a flash the woman appears directly in front of you. She punches you straight in the gut, sending you flying towards the wall.
+<<changeBackground BackgroundManager reflectionroom>> 
+[[reflectCombat]]
+===
+title: reflectCombat
+tags: 
+colorID: 0
+position: 2053,485
+---
+<<nextRoom BattleManager demoEnd>> 
+<<setEnemy BattleManager ReflectionWitch>>
+[[Battle]]
 ===

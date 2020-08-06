@@ -36,6 +36,10 @@ public class BattleManager : MonoBehaviour
     int wonRound = 0;
     bool endBattle = false;
     bool chooseBattler = false;
+    int enemyBuffValue = 1;
+    int playerBuffValue = 1;
+    int defaultEnemyBuffValue = 1;
+    int defautlPlayerBuffValue = 1;
 
     InMemoryVariableStorage variableStorage;
     ClickManager clickManager;
@@ -79,6 +83,15 @@ public class BattleManager : MonoBehaviour
         ocImage.sprite = currentEnemy.portrait;
         ocImage.transform.position = battlePosition.position; 
         Debug.Log("Enemy set to " + currentEnemy.characterName);
+    }
+
+    [YarnCommand("setDialogue")]
+    public void SetDialogue(string enemyName)
+    {
+        currentEnemy = allOCS[enemyName];
+        variableStorage.SetValue("$enemyName", enemyName);
+        ocImage.sprite = currentEnemy.portrait;
+        ocImage.transform.position = dialoguePosition.position;
     }
 
     [YarnCommand("chooseBattler")]
@@ -141,6 +154,19 @@ public class BattleManager : MonoBehaviour
             FindObjectOfType<PartyManager>().AddToParty(currentEnemy.characterName);
         }
         playerPoints = 0;
+        playerBuffValue = defautlPlayerBuffValue;
+        enemyBuffValue = defaultEnemyBuffValue; 
+    }
+
+    [YarnCommand("debuff")]
+    public void Debuff(string target)
+    {
+        switch (target)
+        {
+            case "enemy": enemyBuffValue = -1;
+                break;
+
+        }
     }
 
     void EnemyAI()
@@ -251,6 +277,10 @@ public class BattleManager : MonoBehaviour
         {
             enemyStatStrength *= 2;
         }
+        //stat buffs
+        enemyStatStrength += enemyBuffValue;
+        playerStatStrength += playerBuffValue; 
+    
     }
     void Contest()
     {

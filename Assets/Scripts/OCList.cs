@@ -9,8 +9,9 @@ public class OCList : MonoBehaviour
     public Dictionary<string, OCStats> allOCs = new Dictionary<string, OCStats>();
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
+        ocArray = GetComponents<OCStats>();
         int i = 0;
         foreach(OCStats stats in ocArray)
            {

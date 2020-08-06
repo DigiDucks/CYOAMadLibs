@@ -25,6 +25,11 @@ public class BackgroundManager : MonoBehaviour
                 break;
             case "blank": index = 3;
                 break;
+            case "reflectionroom": index = 4;
+                break;
+            case "reflectionreveal": index = 5;
+                break;
+
             default: Debug.LogError("Incorrect Background Name called: " + name);
                 return;
         }
