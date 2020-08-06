@@ -15,6 +15,8 @@ public class OCStats : MonoBehaviour
 
     public int STR, INT, CHA;
 
+    public bool addToPartyOnDeath= false;
+
     public Sprite portrait;
     [Header("Components")]
     public Image image;

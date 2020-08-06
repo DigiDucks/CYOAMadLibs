@@ -21,6 +21,8 @@ public class BackgroundManager : MonoBehaviour
                 break;
             case "placeholder1": index = 1;
                 break;
+            case "treasureroom": index = 2;
+                break;
             default: Debug.LogError("Incorrect Background Name called: " + name);
                 return;
         }

@@ -55,7 +55,7 @@ tags:
 colorID: 0
 position: 949,244
 ---
-Test Battle Sequence Start~!
+Battle Sequence Start~!
 [[choose]]
 ===
 title: round
@@ -100,6 +100,8 @@ position: 1603,-480
 <<if $wonRound is 0>>
 {$playerName} beat {$enemyName} with a {$playerAttack}!
 <<if $endBattle>> 
+<<restartBattle BattleManager>>
+<<clearEnemy BattleManager>> 
 <<startDialogue DialogueRunner {$nextRoom}>>
 <<endif>> 
 [[ round ]]
@@ -107,6 +109,7 @@ position: 1603,-480
 << if $wonRound is 1>>
 {$enemyName} beat {$playerName} with a {$enemyAttack}!
 <<if $endBattle>>
+<<knockout PartyManager {$playerName}>> 
 <<restartBattle BattleManager>>
 [[ choose ]]
 <<endif>> 
@@ -135,4 +138,158 @@ Choose a fighter!
 <<chooseBattler BattleManager false>> 
 {$playerName} vs {$enemyName}!
 [[round]]
+===
+title: TreasureFloor
+tags: 
+colorID: 0
+position: -678,1322
+---
+<<changeBackground BackgroundManager treasureroom>> 
+A room full of gold and a treasure chest lies before you.
+Finally! All your hard work has paid off.
+[[Take some gold|takegold7]]
+[[ Approach treasure chest |treasurechest2]]
+[[ Leave |leaveTreasureFloor]]
+===
+title: takegold7
+tags: 
+colorID: 0
+position: -952,993
+---
+You start gathering as much gold as much gold as you can.
+After some time, you have the disturbing feeling of being watched...
+You look up...
+<< wait 0.25>>
+and see a Dragon!
+[[ Convince the Dragon to not Attack (Charisma 5)|convinceDragon]]
+[[ We can take a Dragon! |fightDragon]]
+===
+title: treasurechest2
+tags: 
+colorID: 0
+position: -174,1102
+---
+You are standing before the chest. All that remains is to open it.
+[[ Investigate Chest (Intelligence 4) |investigateChest3]]
+[[ Smash it! (Strength 5)|chestSmash]]
+===
+title: leaveTreasureFloor
+tags: 
+colorID: 0
+position: 31,1326
+---
+This is a demo, but in the real game you'd return to the hallway you came from
+[[TreasureFloor]]
+===
+title: notFightDragon7
+tags: 
+colorID: 0
+position: -931,434
+---
+While you were distracted with the Dragon, some else opened the treasure chest.
+Turns out it was a 'Mimic'; they seem to be having a hard time fighting it and look half dead already.
+[[ Help the fool |helpSkele]]
+[[ Leave them to their fate |leaveSkele10]]
+===
+title: fightDragon
+tags: 
+colorID: 0
+position: -342,702
+---
+<<nextRoom BattleManager notFightDragon7>> 
+<<setEnemy BattleManager Dragon>>
+[[Battle]]
+===
+title: investigateChest3
+tags: 
+colorID: 0
+position: 45,728
+---
+<<statCheck PartyManager INT4>>
+<<if $passedCheck>> 
+[[breathing4]]
+<<endif>> 
+[[mimicBattle]]
+===
+title: chestSmash
+tags: 
+colorID: 0
+position: 617,1057
+---
+<<statCheck PartyManager STR5>>
+<<if $passedCheck>>
+[[mimicDestroy]]
+<<endif>>
+The chest starts to growl at you.
+[[mimicBattle]]
+===
+title: helpSkele
+tags: 
+colorID: 0
+position: -658,307
+---
+You join the half-dead warrior to face the mimic!
+<<addTo PartyManager Skeleton>> 
+<<nextRoom BattleManager mimicDestroy>> 
+<<setEnemy BattleManager Mimic>>
+<<debuff BattleManger>> 
+[[Battle]]
+===
+title: leaveSkele10
+tags: 
+colorID: 0
+position: -357,446
+---
+You notice a passage behind the Mimic.
+While the fool fights the Mimic, you sneak down to the next floor
+[[demoEnd ]]
+===
+title: mimicDestroy
+tags: 
+colorID: 0
+position: 807,668
+---
+There is nothing but wood and flesh.
+Mimics tend to not have treasure, after all. You notice a new passage and head to the next floor.
+[[ demoEnd ]]
+===
+title: demoEnd
+tags: 
+colorID: 0
+position: 302,404
+---
+<<changeBackground BackgroundManager placeholder0>>
+Thanks for playing through this demo! Please let me know if you run into bugs/have any suggestions!
+We need music plz
+===
+title: breathing4
+tags: 
+colorID: 0
+position: -460,958
+---
+It's breathing, so not a chest. Probably best not to mess with it.
+[[ Take some of the loose gold |notFightDragon7]]
+===
+title: mimicBattle
+tags: 
+colorID: 0
+position: 413,742
+---
+You realize it wasn't a chest at all but a Mimic that wakes up after you've messed around with it!
+<<nextRoom BattleManager mimicDestroy>> 
+<<setEnemy BattleManager Mimic>>
+[[Battle]]
+===
+title: convinceDragon
+tags: 
+colorID: 0
+position: -944,723
+---
+<<statCheck PartyManager CHA5>>
+<<if $passedCheck>>
+You promise not to take any of the Dragon's gold, and it surprisingly believes you.
+[[notFightDragon7]]
+<<endif>> 
+The Dragon scoffs at your attempts to explain yourself and rears back it's head to release a loud roar!
+[[fightDragon]]
 ===

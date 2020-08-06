@@ -21,6 +21,7 @@ public class BattleManager : MonoBehaviour
     public Transform battlePosition;
     public Transform dialoguePosition;
     public Image ocImage;
+    [SerializeField] Sprite blank;
 
     [Header("Battle Stats")]
     public StatType playerAttackType;
@@ -112,8 +113,7 @@ public class BattleManager : MonoBehaviour
                 playerStatStrength = currentBattler.CHA;
                 break;
         }
-        Debug.Log(playerAttackType.ToString() + " " + playerStatStrength.ToString());
-        previousAttack = playerAttackType;      
+        Debug.Log(playerAttackType.ToString() + " " + playerStatStrength.ToString());    
         EnemyAI();
         Result();
     }
@@ -130,6 +130,16 @@ public class BattleManager : MonoBehaviour
     {
         enemyPoints = 0;
         endBattle = false;
+    }
+
+    [YarnCommand("clearEnemy")]
+    public void ClearEnemy()
+    {
+        ocImage.sprite = blank;
+        if (currentEnemy.addToPartyOnDeath)
+        {
+            FindObjectOfType<PartyManager>().AddToParty(currentEnemy.characterName);
+        }
     }
 
     void EnemyAI()
@@ -204,9 +214,6 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
-
-
-
     void SendToStorage()
     {
         variableStorage.SetValue("$enemyAttack",enemyStatStrength);
@@ -286,6 +293,7 @@ public class BattleManager : MonoBehaviour
     {
         TypeCheck();
         Contest();
+        previousAttack = playerAttackType;
         SendToStorage();
     }
     #endregion
