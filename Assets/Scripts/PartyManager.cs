@@ -14,6 +14,8 @@ public class PartyManager : MonoBehaviour
 
     public OCStats mainCharacter;
 
+    int numberDead = 0;
+
     Dictionary<string,OCStats> allOCs;
     Dictionary<string, GameObject> inParty = new Dictionary<string, GameObject>();
 
@@ -77,6 +79,11 @@ public class PartyManager : MonoBehaviour
         Image i = inParty[character].GetComponent<Image>();
         inParty[character].GetComponent<Image>().color = new Color(150, 50, 50);
         inParty[character].GetComponent<Button>().enabled = false;
+        numberDead++;
+        if(numberDead >= inParty.Count)
+        {
+            FindObjectOfType<DialogueRunner>().StartDialogue("GameOver");
+        }
     }
 
     [YarnCommand("revive")]
@@ -87,6 +94,7 @@ public class PartyManager : MonoBehaviour
             obj.Value.GetComponent<Image>().color = Color.black;
             obj.Value.GetComponent<Button>().enabled = false;
         }
+        numberDead = 0;
     }
 
     [YarnCommand("addTo")]

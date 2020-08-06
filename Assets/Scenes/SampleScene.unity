@@ -434,7 +434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &193162763
 GameObject:
@@ -602,7 +602,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &193162771
 MonoBehaviour:
@@ -1769,7 +1769,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &861543098 stripped
 MonoBehaviour:
@@ -1822,7 +1822,7 @@ RectTransform:
   - {fileID: 1000178551}
   - {fileID: 33196220}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2479,7 +2479,7 @@ Transform:
   m_LocalScale: {x: 0.99850374, y: 0.99850374, z: 0.99850374}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1418979815
 GameObject:
@@ -3697,13 +3697,13 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 7
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
   m_CellSize: {x: 242.4, y: 63.1}
   m_Spacing: {x: 0, y: 0}
-  m_Constraint: 2
-  m_ConstraintCount: 2
+  m_Constraint: 1
+  m_ConstraintCount: 3
 --- !u!222 &1662806639
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4125,6 +4125,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: abea6de0ac12a5a42ad9dda9b7b1e8bb, type: 3}
   - {fileID: 21300000, guid: b8916a6b2dab17442a157f49e7600000, type: 3}
   - {fileID: 21300000, guid: 93709b3bf2f46794bb938aa36e78137b, type: 3}
+  - {fileID: 21300000, guid: b8b0ba46754070545a515f6b20f910eb, type: 3}
 --- !u!4 &1795160137
 Transform:
   m_ObjectHideFlags: 0
@@ -4137,7 +4138,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1815323018
 GameObject:
@@ -4967,7 +4968,7 @@ MonoBehaviour:
   textLanguage: English
   variableStorage: {fileID: 2038436318367658538}
   dialogueUI: {fileID: 2038436318367658539}
-  startNode: treasurechest2
+  startNode: TreasureFloor
   startAutomatically: 0
   onNodeStart:
     m_PersistentCalls:
@@ -5012,7 +5013,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3875459888269766676
 PrefabInstance:

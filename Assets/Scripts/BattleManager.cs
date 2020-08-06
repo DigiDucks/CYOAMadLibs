@@ -140,6 +140,7 @@ public class BattleManager : MonoBehaviour
         {
             FindObjectOfType<PartyManager>().AddToParty(currentEnemy.characterName);
         }
+        playerPoints = 0;
     }
 
     void EnemyAI()

@@ -109,7 +109,7 @@ position: 1603,-480
 << if $wonRound is 1>>
 {$enemyName} beat {$playerName} with a {$enemyAttack}!
 <<if $endBattle>>
-<<knockout PartyManager {$playerName}>> 
+<<knockOut PartyManager {$playerName}>> 
 <<restartBattle BattleManager>>
 [[ choose ]]
 <<endif>> 
@@ -292,4 +292,12 @@ You promise not to take any of the Dragon's gold, and it surprisingly believes y
 <<endif>> 
 The Dragon scoffs at your attempts to explain yourself and rears back it's head to release a loud roar!
 [[fightDragon]]
+===
+title: GameOver
+tags: 
+colorID: 0
+position: 137,-941
+---
+<<changeBackground BackgroundManager blank>>
+and they were never seen again... (refresh page to restart)
 ===
