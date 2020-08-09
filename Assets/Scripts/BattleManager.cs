@@ -35,7 +35,10 @@ public class BattleManager : MonoBehaviour
     public int playerPoints = 0, enemyPoints = 0;
     int wonRound = 0;
     bool endBattle = false;
-    bool chooseBattler = false;
+   public bool chooseBattler = false;
+    bool chargingAttack = false;
+    bool boss = false;
+    int chargeRound = 0;
     int enemyBuffValue = 0;
     int playerBuffValue = 0;
     int defaultEnemyBuffValue = 0;
@@ -111,24 +114,37 @@ public class BattleManager : MonoBehaviour
     [YarnCommand("declareAttack")]
     public void DeclareAttack(string type)
     {
-        switch (type)
-        {
-            case "STR": playerAttackType = StatType.STR;
-                playerStatStrength = currentBattler.STR;
-                Debug.Log("Chose Strength");
-                break;
-            case "INT":
-                playerAttackType = StatType.INT;
-                playerStatStrength = currentBattler.INT;
-                break;
-            case "CHA":
-                playerAttackType = StatType.CHA;
-                playerStatStrength = currentBattler.CHA;
-                break;
-        }
+        PlayerAttack(type);
         Debug.Log(playerAttackType.ToString() + " " + playerStatStrength.ToString());    
         EnemyAI();
         Result();
+    }
+
+    [YarnCommand("declareBossAttack")]
+    public void BossAttack(string type)
+    {
+        boss = true;
+        PlayerAttack(type);
+        Debug.Log(playerAttackType.ToString() + " " + playerStatStrength.ToString());
+        if (chargeRound < 0)
+        {
+            enemyStatStrength = 0;
+        }
+        else if (chargeRound < 2)
+        {
+            chargingAttack = true;
+            variableStorage.SetValue("$chargingAttack", chargingAttack);
+            EnemyAI();
+        }
+        else if(chargeRound >= 2)
+        {
+            chargingAttack = false;
+            variableStorage.SetValue("$chargingAttack", chargingAttack);
+            chargeRound = -2;
+            EnemyAI();
+        }
+        Result();
+        chargeRound++;
     }
 
     [YarnCommand("nextRoom")]
@@ -149,11 +165,12 @@ public class BattleManager : MonoBehaviour
     public void ClearEnemy()
     {
         ocImage.sprite = blank;
-        if (currentEnemy.addToPartyOnDeath)
+        if (currentEnemy!= null && currentEnemy.addToPartyOnDeath)
         {
             FindObjectOfType<PartyManager>().AddToParty(currentEnemy.characterName);
         }
         playerPoints = 0;
+        boss = false;
         playerBuffValue = defautlPlayerBuffValue;
         enemyBuffValue = defaultEnemyBuffValue; 
     }
@@ -165,7 +182,39 @@ public class BattleManager : MonoBehaviour
         {
             case "enemy": enemyBuffValue = -1;
                 break;
+            case "scream": playerBuffValue = -1;
+                break;
+        }
+    }
 
+    [YarnCommand("permanentBuff")]
+    public void PermBuff(string target)
+    {
+        switch (target)
+        {
+            case "enemy": defaultEnemyBuffValue = -1;
+                break;
+            case "sword": defautlPlayerBuffValue += 1;
+                break;
+        }
+    }
+
+    void PlayerAttack(string type)
+    {
+        switch (type)
+        {
+            case "STR":
+                playerAttackType = StatType.STR;
+                playerStatStrength = currentBattler.STR;
+                break;
+            case "INT":
+                playerAttackType = StatType.INT;
+                playerStatStrength = currentBattler.INT;
+                break;
+            case "CHA":
+                playerAttackType = StatType.CHA;
+                playerStatStrength = currentBattler.CHA;
+                break;
         }
     }
 
@@ -240,6 +289,7 @@ public class BattleManager : MonoBehaviour
                 rolling = true;
             }
         }
+
     }
     void SendToStorage()
     {
@@ -277,6 +327,10 @@ public class BattleManager : MonoBehaviour
         {
             enemyStatStrength *= 2;
         }
+        if (!chargingAttack && boss)
+        {
+            enemyStatStrength *= 2;
+        }
         //stat buffs
         enemyStatStrength += enemyBuffValue;
         playerStatStrength += playerBuffValue; 
@@ -284,6 +338,8 @@ public class BattleManager : MonoBehaviour
     }
     void Contest()
     {
+        int pointsToWin;
+        if (boss) pointsToWin = 2; else pointsToWin = 1;
         if (enemyStatStrength > playerStatStrength)
         {
             enemyPoints++;
@@ -300,7 +356,7 @@ public class BattleManager : MonoBehaviour
 
         }
 
-        if (playerPoints > 1)
+        if (playerPoints >pointsToWin)
         {
             //win
             endBattle = true;

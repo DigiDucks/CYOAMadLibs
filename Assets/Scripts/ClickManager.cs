@@ -14,6 +14,8 @@ public class ClickManager : MonoBehaviour
     public bool continuing = false;
     public string nextNode;
     public GameObject canProgressIndicator;
+    public GameObject characerSelect;
+    public GameObject skipButton;
 
     private void Start()
     {
@@ -67,9 +69,26 @@ public class ClickManager : MonoBehaviour
 
     }
 
-    public void SetContinue(bool cont)
+    [YarnCommand("setCharacterSelect")]
+    public void CharacterSelect()
     {
-        continuing = cont;
+        characerSelect.SetActive(true);
+        skipButton.SetActive(false);
+        PauseToggle("true");
+    }
+
+    [YarnCommand("setContinue")]
+    public void SetContinue(string cont)
+    {
+        if(cont == "true")
+        {
+
+        continuing = true;
+        }
+        else
+        {
+            continuing = false;
+        }
     }
     public void PauseToggle(string isPaused)
     {

@@ -14,7 +14,7 @@ public class PartyManager : MonoBehaviour
 
     public OCStats mainCharacter;
 
-    int numberDead = 0;
+    public int numberDead = 0;
 
     Dictionary<string,OCStats> allOCs;
     Dictionary<string, GameObject> inParty = new Dictionary<string, GameObject>();
@@ -38,7 +38,7 @@ public class PartyManager : MonoBehaviour
         {
             AddToParty("Hansel");
         }
-        FindObjectOfType<DialogueRunner>().StartDialogue();
+        FindObjectOfType<DialogueRunner>().StartDialogue("mainHall");
     }
 
     [YarnCommand("statCheck")]
@@ -69,7 +69,6 @@ public class PartyManager : MonoBehaviour
         {
             variableMemory.SetValue("$passedCheck",false);
         }
-        
 
     }
 
@@ -80,9 +79,9 @@ public class PartyManager : MonoBehaviour
         inParty[character].GetComponent<Image>().color = new Color(150, 50, 50);
         inParty[character].GetComponent<Button>().enabled = false;
         numberDead++;
-        if(numberDead >= inParty.Count)
+        if(numberDead >= inParty.Count-1)
         {
-            FindObjectOfType<DialogueRunner>().StartDialogue("GameOver");
+            FindObjectOfType<ClickManager>().SetNextNode("GameOver");
         }
     }
 
@@ -92,17 +91,34 @@ public class PartyManager : MonoBehaviour
         foreach(KeyValuePair<string, GameObject> obj in inParty)
         {
             obj.Value.GetComponent<Image>().color = Color.black;
-            obj.Value.GetComponent<Button>().enabled = false;
+            obj.Value.GetComponent<Button>().enabled = true;
         }
         numberDead = 0;
+
+        
     }
 
     [YarnCommand("addTo")]
     public void AddToParty(string stats)
     {
-        Debug.Log("added " + stats + " to party");
-        GameObject objToSpawn = Instantiate(Resources.Load<GameObject>("OCParty"), spawnArea);
-        inParty.Add(stats, objToSpawn);
-        objToSpawn.GetComponent<OCStats>().SetStats(allOCs[stats]);
+        if (!inParty.ContainsKey(stats))
+        {
+            Debug.Log("added " + stats + " to party");
+            GameObject objToSpawn = Instantiate(Resources.Load<GameObject>("OCParty"), spawnArea);
+            inParty.Add(stats, objToSpawn);
+            objToSpawn.GetComponent<OCStats>().SetStats(allOCs[stats]);
+        }
+    }
+
+    public void AddToParty(OCStats stats)
+    {
+        string charName = stats.characterName;
+        if (!inParty.ContainsKey(charName))
+        {
+            Debug.Log("added " + stats + " to party");
+            GameObject objToSpawn = Instantiate(Resources.Load<GameObject>("OCParty"), spawnArea);
+            inParty.Add(charName, objToSpawn);
+            objToSpawn.GetComponent<OCStats>().SetStats(stats);
+        }
     }
 }

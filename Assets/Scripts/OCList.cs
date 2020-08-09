@@ -16,7 +16,6 @@ public class OCList : MonoBehaviour
         foreach(OCStats stats in ocArray)
            {
                allOCs.Add(ocArray[i].characterName, ocArray[i]);
-               Debug.Log(allOCs[ocArray[i].characterName]);
                i++;
            }
     }
