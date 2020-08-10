@@ -3,6 +3,7 @@ tags:
 colorID: 2
 position: 1216,-66
 ---
+<<playMusic MusicManager battle>> 
 Battle Sequence Start~!
 [[choose]]
 ===
@@ -50,6 +51,7 @@ position: 1599,-483
 <<if $endBattle>> 
 <<restartBattle BattleManager>>
 <<clearEnemy BattleManager>> 
+VICTORY!
 <<else>>
 [[ round ]]
 <<endif>> 
@@ -86,6 +88,7 @@ tags:
 colorID: 3
 position: -678,1322
 ---
+<<playMusic MusicManager theme>> 
 <<changeBackground BackgroundManager treasureroom>> 
 <<if $treasureComplete>> 
 The gold's all disappeared, huh, wierd
@@ -133,6 +136,7 @@ tags:
 colorID: 0
 position: -931,434
 ---
+<<playMusic MusicManager theme>> 
 While you were distracted with the Dragon, some else opened the treasure chest.
 Turns out it was a 'Mimic'; they seem to be having a hard time fighting it and look half dead already.
 [[ Help the fool |helpSkele]]
@@ -198,6 +202,7 @@ tags:
 colorID: 0
 position: 807,668
 ---
+<<playMusic MusicManager theme>> 
 There is nothing but wood and flesh.
 Mimics tend to not have treasure, after all. You notice a new passage and head forward.
 <<set $treasureComplete to true>> 
@@ -241,13 +246,14 @@ position: 1219,541
 ---
 <<changeBackground BackgroundManager blank>>
 <<setContinue ClickManager false>> 
-and they were never seen again... (refresh page to restart)
+And they were never seen again... (refresh page to restart)
 ===
 title: FloorOfReflection
 tags: 
 colorID: 4
 position: 1375,1203
 ---
+<<playMusic MusicManager theme>> 
 <<changeBackground BackgroundManager reflectionroom>> 
 <<if $reflectionComplete>> 
 The room remains empty save for the vanity. Best not to dwell here too long.
@@ -331,6 +337,7 @@ tags:
 colorID: 0
 position: 2356,537
 ---
+<<playMusic MusicManager theme>> 
 The lady lets out a violent shriek as you deal the final blow. She is sent whirling in the air, and explodes like a firecracker. No trace of her is left behind.
 ->Press Onward
 <<set $reflectionComplete to true>> 
@@ -339,8 +346,9 @@ The lady lets out a violent shriek as you deal the final blow. She is sent whirl
 title: TeacherFloor
 tags: 
 colorID: 3
-position: 2164,1740
+position: 2235,1605
 ---
+<<playMusic MusicManager theme>> 
 <<changeBackground BackgroundManager classroom>> 
 <<if $classroomComplete>> 
 It's eerie in here with no students.
@@ -530,7 +538,8 @@ tags:
 colorID: 4
 position: -734,2171
 ---
-<<setBackground BackgroundManager blank>> 
+<<playMusic MusicManager theme>> 
+<<changeBackground BackgroundManager door>> 
 You stand in front of a sturdy wooden door.
 <<if $lostComplete>>
 The ThreeFaced woman was here before. Why was she hanging out in the dark?
@@ -552,12 +561,14 @@ tags:
 colorID: 0
 position: -760,1878
 ---
-<<setDialogue BattleManager ThreeFace>> 
+<<changeFace BattleManager 0>> 
+<<changeBackground BackgroundManager blank>> 
 You see a woman with three faces arguing with herself.
 <<if $gotBoy>>
+<<changeFace BattleManager 1>> 
 "Thank you for finding him. We will join your cause." 
 <<set $lostComplete to true>> 
-<<addTo PartyManager ThreeFace>> 
+<<add3Face PartyManager>> 
 ThreeFace Joined the Party
 <<else>> 
 [[ Try to calm down the woman |calm3]]
@@ -571,6 +582,7 @@ position: -511,1626
 ---
 <<statCheck PartyManager CHA3>>
 <<if $passedCheck>>
+<<changeFace BattleManager 1>> 
 "We lost our little boy. Could you find him for us? We will fight with you if you find him."
 ->Sure thing, Lady
     Guess we're looking for a lost kid now
@@ -609,6 +621,7 @@ tags:
 colorID: 4
 position: -387,2368
 ---
+<<playMusic MusicManager theme>> 
 <<setBackground BackgroundManager blank>> 
 <<setDialogue BattleManager LostBoy>> 
 You find a little boy crying in the corner of the room in the dark.
@@ -641,6 +654,7 @@ tags:
 colorID: 3
 position: -23,-583
 ---
+<<playMusic MusicManager theme>> 
 <<changeBackground BackgroundManager placeholder1>> 
 <<setDialogue BattleManager DuckKnight>> 
 <<set $duckFind to true>> 
@@ -711,7 +725,8 @@ position: 457,-153
 <<statCheck PartyManager INT4>>
 <<if $passedCheck>>
  "I hate to admit it but you're absolutely correct. I'm remembering now how the church has mistreated people who didn't fall directly in line. I now wish to not be part of the corruption within my church. But what should I do instead?"
-->"Leave your church and join my party, I don't need your weapons but I'd very much appreciate another hand so that I may accomplish my task. I'll split the reward with you and help you in any other way you'd like."
+->"Leave your church and join my party"
+    You continue: "I don't need your weapons but I'd very much appreciate another hand so that I may accomplish my task. I'll split the reward with you and help you in any other way you'd like."
     "Alright, I'll join. But in return I want you to help me build my own church. If I shall die on this journey build one in my name. That is all I wish."
     <<addTo PartyManager DuckKnight>> 
     <<clearEnemy BattleManager>> 
@@ -776,11 +791,18 @@ Impressed by your prowess in battle, DuckKnight joins your party!
 title: ClownCollege
 tags: 
 colorID: 3
-position: 2609,-744
+position: 2610,-746
 ---
 <<setBackground BackgroundManager blank>>
+<<if $clownComplete>> 
+This is the clown college. Lets *not* go through that again
+->Return
+    <<returnToHall DungeonManager>>
+<<else>> 
 All is black. There is nothing there except the option to move forward.
 ->Move Forward
+    <<playMusic MusicManager silly>> 
+    <<changeBackground BackgroundManager classroom>> 
     Suddenly, it lights up and reveals that it is a circus. 
     Loud clown music is playing and a clown walks up to you. 
     <<if $senseiGet>>
@@ -790,6 +812,7 @@ All is black. There is nothing there except the option to move forward.
     [[ Pretend to be a student (Charisma > 5) |student4]]
     [[ Attack immediately|atck3]]
     [[ Start laughing |atck3]]
+<<endif>>
 ===
 title: student4
 tags: 
@@ -811,6 +834,7 @@ tags:
 colorID: 0
 position: 2883,-890
 ---
+<<changeBackground BackgroundManager room>> 
 A trap door is activated and you drop down through the floor!
 You land in a small room with a locked door and what looks like.. A BOMB!
 [[ Deactivate the Bomb (Inteligence >5)|puzzle3]]
@@ -823,12 +847,15 @@ colorID: 0
 position: 2648,-1254
 ---
 "Nice try. You are going to the clown dungeon."
+<<changeBackground BackgroundManager room>> 
 A trap door in the floor opens, this time sending to what you assume to be the clown dungeon
 You notice someone else is already here. A sad looking clown
+<<setDialogue BattleManager ClownMan>> 
 "You look too tough to be a clown. Are you here to slay the headmistress?"
 ->Heck yeah, lets go ClownMan
 <<addTo PartyManager ClownMan>> 
 With the ClowMan's help, it easy to break down the cell door
+<<clearEnemy BattleManager>> 
 [[clownGuantlet ]]
 ===
 title: punch6
@@ -901,6 +928,7 @@ tags:
 colorID: 0
 position: 2326,-1429
 ---
+<<changeBackground BackgroundManager classroom>> 
 You enter a room that seems to be a clown teacher breakroom
 "Ah, a couple of wise-guys, eh? Guess we've got some teachin' to do"
 <<setEnemy BattleManager ClownHoard>>
@@ -913,6 +941,7 @@ colorID: 0
 position: 3061,-1500
 ---
 You drop through, yet another, trap door in the floor. (Who put these all here?)
+<<changeBackground BackgroundManager hell>> 
 Its just hell. Not clown hell, actual hell. The clown teacher is there and says 'Ha ha! Now that we are in my actual home, I am much stronger. Can you survive our patented clown gun?"
 He's got a large gun leveled at you
 <<if $clownBomb>>
@@ -947,6 +976,7 @@ tags:
 colorID: 0
 position: 2942,-1769
 ---
+<<set $clownComplete to true>> 
 Its the largest explosion of confetti and clown parts you've ever seen.
 Might be best to try and forget this place as much as possible.
 ->Take the stairs out of here
@@ -957,7 +987,9 @@ tags:
 colorID: 6
 position: 2241,2546
 ---
-You find a student break room. There are some nice couches and a minifridge stocked with juice-boxes and little bags of Dorritos. Taking some time to chill fills your party with newfound vigor
+<<changeBackground BackgroundManager room>> 
+<<playMusic MusicManager silly>> 
+You find a student break room. There are some nice couches and a minifridge stocked with juice-boxes and little bags of Doritos. Taking some time to chill fills your party with newfound vigor.
 <<revive PartyManager>>
 ->Return
     <<returnToHall DungeonManager>>
@@ -967,6 +999,8 @@ tags:
 colorID: 6
 position: 2172,2839
 ---
+<<changeBackground BackgroundManager room>> 
+<<playMusic MusicManager silly>> 
 <<if $duckComplete>> 
 This is where that weird duck was
 ->Return to hall
@@ -976,34 +1010,39 @@ This is where that weird duck was
 You enoucounter a... student? You guess. Reeeally looks like a duck though
 <<set $duckFind to true>> 
 ->Take it with You  
+    <<clearEnemy BattleManager>>
     <<set $duckComplete to true>> 
     <<addDuck PartyManager>> 
+    <<returnToHall DungeonManager>>
     Duck Get!
 ->Lets... just leave it for now
     It looks a little sad to see you go
+    <<clearEnemy BattleManager>>
     <<returnToHall DungeonManager>>
 << endif>>
-<<clearEnemy BattleManager>>
-<<returnToHall DungeonManager>>
 ===
 title: returnTemplar
 tags: 
 colorID: 0
 position: 1103,-474
 ---
+<<clearEnemy BattleManager>> 
 <<returnToHall DungeonManager>>
 ===
 title: LaryRoom
 tags: 
 colorID: 6
-position: 2595,2648
+position: 2586,2648
 ---
+<<changeBackground BackgroundManager room>> 
+<<playMusic MusicManager silly>> 
 <<if $laryComplete>> 
 This is where you found that Lary before. It's just an empty room now
 <<else>>  
 <<setBackground BackgroundManager hallway>>
 As you enter the room, the main feature that sticks out to you is that it's completely empty.
 When you turn to leave, you are confronted with a most peculiar being. 
+<<setDialogue BattleManager Lary>> 
 You aren't quite sure how you know this, but you are certain that this is a Lary.
 Suddenly, a portal opens behind the Lary and it rushes through, looking back at you as if beaconing you to follow.
 ->Examine portal
@@ -1012,20 +1051,24 @@ Suddenly, a portal opens behind the Lary and it rushes through, looking back at 
     ->Gotta find out more about Lary
         [[cathedral]]
     ->I'm gonna head out
+        <<clearEnemy BattleManager>> 
         <<returnToHall DungeonManager>> 
 ->Chase after the Lary
     [[cathedral]]
 ->Return to hall
+    <<clearEnemy BattleManager>> 
     <<returnToHall DungeonManager>>
 <<endif>>
 ===
 title: mainHall
 tags: 
 colorID: 1
-position: 993,1725
+position: 991,1723
 ---
+<<playMusic MusicManager theme>> 
+<<changeBackground BackgroundManager mainTunnel>> 
 <<if $foundTunnel>> 
-You're back in the main tunnel
+You're back in the main tunnel.
 ->Go Left
     [[Left]]
 ->Go Right
@@ -1046,7 +1089,7 @@ An underground path leads forwards, it begins to veer left then right, branching
     All save for one part of the floor that looks like... a wooden door!
     ->Enter door
         <<set $foundTunnel to true>>
-        Its a tunnel that leads to a vertical chimney-like tunnel with a ladder going both up and down.
+        It's a tunnel that leads to a vertical chimney-like tunnel with a ladder going both up and down.
         -> Head up
             [[Up]] 
         -> Head down
@@ -1060,6 +1103,7 @@ tags:
 colorID: 0
 position: 1424,1721
 ---
+<<changeBackground BackgroundManager door>> 
 <<if $senseiComplete>> 
 This is Sensei's office
 ->Continue forward
@@ -1071,8 +1115,10 @@ This is Sensei's office
 <<else>> 
 You stand in front of what looks like an office door. High energy Japanese electropop is blasting from inside and the words "Magical Sensei" are displayed on name placard. 
 -> Go in
+    <<changeBackground BackgroundManager classroom>> 
+    <<playMusic MusicManager silly>> 
     <<setDialogue BattleManager MagicSensei>>
-    A crazed man-duck is at his desk and begins to speak(?) ina horse quacking voice,
+    A crazed man-duck is at his desk and begins to speak(?) ina hoarse quacking voice,
     "Yare yare daze *quack*. Itu seemzu anata has farren *quack* into watashi's trap." "It is now time *quack* to die akachan."
     ->"What does that even mean?"
         "Nihongo de iu *quack*" Sensei says as he uses his full force neutral attack.
@@ -1091,18 +1137,20 @@ tags:
 colorID: 1
 position: 1578,1490
 ---
+<<playMusic MusicManager theme>> 
+<<changeBackground BackgroundManager grandHall>> 
 <<if $visited>> 
 <<else>> 
-You've entered what looks like a grand foyer. Sunlight filters through some elaborate stained windows depicting elaborate scenes of animals and plants. You find yourself wondering if this castle was always run by witches or if it was transformed from it original purpose. 
+You've entered what looks like a grand foyer. Sunlight filters through some stained glass windows depicting elaborate scenes of animals and plants. You find yourself wondering if this castle was always run by witches or if it was transformed from its original purpose. 
 Such thoughts are distractions as you re-focus on the task at hand. 
 <<endif>>
 <<set $visited to true>> 
-There is a large door at the top of a stair case, but of course that's locked. There are halls to the left and right though. Also there's a front door and what looks to be a closet? 
+There is a large door at the top of a staircase, but of course that's locked. There are halls to the left and right though. Also, there's a front door and what looks to be a closet? 
 ->Go left
     <<progressRoom DungeonManager SecondLeft>> 
 ->Go right
     <<progressRoom DungeonManager SecondRight>> 
-->See whats behind the front door
+->See what's behind the front door
     You enter, but you don't seem to be outside at all 
     <<progressRoom DungeonManager SecondFront>>
 ->Check the closet
@@ -1144,18 +1192,20 @@ tags:
 colorID: 0
 position: 1732,1952
 ---
+<<playMusic MusicManager theme>> 
+<<changeBackground BackgroundManager room>> 
 <<if $keyGet>> 
 This is the magic closet you got the magic key in.
 <<returnToHall DungeonManager>>
 <<else>> 
-There's a magic storage closet with some magic janitor tools
+There's a magic storage closet with some magic janitor tools.
 ->Open a magic tool box
-    A magic key! I wonder where you could use this
+    A magic key! I wonder where you could use this.
     <<set $keyGet to true>> 
     ->Head back
         <<returnToHall DungeonManager>>
 ->Play air-guitar with the magic broom
-    Well, that was fun
+    Well, that was fun.
     [[secondGate]]
 <<endif>>
 ===
@@ -1164,9 +1214,12 @@ tags:
 colorID: 0
 position: 2821,2463
 ---
+<<changeBackground BackgroundManager outside>> 
 You stand on a lawn before a massive, sparking white cathedral. Various different Larys are cavorting in the grounds none paying you mind. The one that you followed stands at the steps and fervently ushers you inside the monumental structure. 
 ->Follow that Lary
+    <<changeBackground BackgroundManager room>> 
     The sheer scale of this place is astounding, leaving you quite lost for words. The Lary you were following joins up with a group of Larys with platypus beaks and they begin communicating quietly among one another. 
+    <<clearEnemy BattleManager>> 
     [[ grandHall ]]
 ===
 title: grandHall
@@ -1176,6 +1229,7 @@ position: 3130,2651
 ---
 Before you on a great throne sit a rather large, plain looking Lary, emanating a smug, divine power.
 Much like the knowledge that these beings are Larys, you know that what sits up on high is their leader, Leh'Rii, lord of dimensions, bringer of doom, corrupted one, and creator of revolution. 
+<<setEnemy BattleManager Lary>> 
 It's energy provokes you, challenges you to prove your worth to all of Lary kind. You feel a wave of compassion and understanding from it; it hears your heart's plight and agree's to help in your journey only if you can best it.
 ->Accept this challenge 
     <<setEnemy BattleManager Lary>> 
@@ -1184,6 +1238,7 @@ It's energy provokes you, challenges you to prove your worth to all of Lary kind
 ->Wet your pants and run away
     As soon as you step out of the cathedral, all vanishes and you are in the room you came from, with no sign of the portal or the Larys. You do smell that weird cheese smell though.
     ->Try and forget
+        <<clearEnemy BattleManager>> 
         <<returnToHall DungeonManager>>
 ===
 title: larySuccess
@@ -1191,6 +1246,7 @@ tags:
 colorID: 0
 position: 2856,2877
 ---
+<<playMusic MusicManager theme>> 
 Leh'Rii presents you with a box for your victory.
 You are compelled to open the box. Reveal the great possibilities that lie within this chest. Could it hold secrets untold? The answer to all of the universe's questions? The key to interdimensional travel? Only those who choose this knowledge will know of the chests many secrets.
 ->Gain the truth
@@ -1208,6 +1264,7 @@ tags:
 colorID: 2
 position: 2540,135
 ---
+<<playMusic MusicManager bossBattle>> 
 Boss Battle Start~!
 Best 3 out of 5
 [[ chooseBoss ]]
@@ -1229,6 +1286,10 @@ tags:
 colorID: 0
 position: 2908,132
 ---
+<<if $chargingAttack>>
+<<else>> 
+{$enemyName} is left weakened from using magic!
+<<endif>> 
 Which attack do you choose?
 ->STR
     <<declareBossAttack BattleManager STR>>
@@ -1245,12 +1306,20 @@ tags:
 colorID: 0
 position: 3101,-101
 ---
+<<if $chargingAttack>>
+<<else>> 
+{$enemyName} let out a devastating magical blow!
+<<endif>>
 <<if $wonRound is 0>>
 {$playerName} beat {$enemyName} with a {$playerAttack} against {$enemyAttack}!
 <<if $endBattle>> 
 <<restartBattle BattleManager>>
 <<clearEnemy BattleManager>> 
+VICTORY
 <<else>>
+<<if $chargingAttack>> 
+{$enemyName} is charging a powerful magic attack!
+<<endif>>
 [[ roundBoss ]]
 <<endif>> 
 //end battle sequence
@@ -1262,31 +1331,32 @@ position: 3101,-101
 <<restartBattle BattleManager>>
 [[ chooseBoss ]]
 <<else>>
+<<if $chargingAttack>> 
+{$enemyName} is charging a powerful magic attack!
+<<endif>>
 [[ roundBoss ]]
 <<endif>> 
 <<endif>>
 <<if $wonRound is 2>>
 It's a draw at {$playerAttack}
-[[ roundBoss ]]
-<<endif>>
 <<if $chargingAttack>> 
 {$enemyName} is charging a powerful magic attack!
-<<else>>
-{$enemyName} let out a devastating magical blow!
-{$enemyName} is left weakened from using magic!
+<<endif>>
+[[ roundBoss ]]
 <<endif>>
 ===
 title: mainGateWin
 tags: 
 colorID: 0
-position: 1425,1969
+position: 1423,1967
 ---
+<<playMusic MusicManager theme>> 
 Sensei lies defeated on the ground. As he struggles to get up, he locks eyes with you. 
 His plastic katana he used in battle lies at your feet. 
 On one hand, he's clearly a witch that works for the headmistress, whom you've traveled here to defeat. On the other hand, he's a powerful witch who knows the secrets of this castle.
 ->Spare Sensei
     You kick the katana back to him. 
-    "Why are you doing this?... You are truely filled with honor. Maybe you could be the one to stop her..."
+    "Why are you doing this?... You are truly filled with honor. Maybe you could be the one to stop her..."
     He regains his footing and pulls out a lanyard filled with various keys and character key chains. "I will help you, but on the condition you show her the same mercy you showed me."
     He unlocks a back door and you progress through.
     MagicSensei joins the party!
@@ -1296,7 +1366,7 @@ On one hand, he's clearly a witch that works for the headmistress, whom you've t
     You pick up the mall katana, it's actually got a good weight to it.
     It easily fits into Sensei's chest as he closes his eyes. "Kami speed to you, oh great warrior"
     <<permanentBuff BattleManager sword>> 
-    You got Sensei's Sword (All stats +1)
+    You got Sensei's Sword (All attacks +1)
 <<set $senseiComplete to true>> 
 <<moveHalls DungeonManager second>> 
 <<nextRoom ClickManager secondHall>>
@@ -1306,6 +1376,7 @@ tags:
 colorID: 0
 position: 1740,1729
 ---
+<<changeBackground BackgroundManager door>> 
 An imposing wooden door stands at the top of the stairs
 <<if $keyGet>>
 ->Use the key and finish your quest
@@ -1324,6 +1395,7 @@ tags:
 colorID: 0
 position: 1917,1434
 ---
+<<changeBackground BackgroundManager bedroom>> 
 You see probably one of the chillest rooms you've ever seen. A magic incense wafts through the air that smells... heavy? 
 <<setDialogue BattleManager JayeWitch>>
 In all her terrible glory is the headmistress.
@@ -1349,12 +1421,13 @@ Hear the roar of my full force neutral attack!
 title: endScene
 tags: 
 colorID: 8
-position: 2305,2000
+position: 2303,1997
 ---
+<<playMusic MusicManager theme>> 
 With the headmistress' final form defeated, the smoke clears and the lights come on.
 As you get a better look around, you realize this cozy bedroom has been lived in for a while.
-A realization comes over you. This whole time she's been quarantined against the diseases that are ravaging her school, there's no way she could have been kidnapping all those kids.
-Still, she is kind of a witch
+A realization comes over you. This whole time, she's been quarantined against the diseases that are ravaging her school. There's no way she could have been kidnapping all those kids.
+Still, she is kind of a witch.
 -> End her and be done with this quest
     Sensei's katana gleams in the light. It makes quick work of the witch. 
     With your deed done, you don't feel a sense of pride, but the completion of your duty leave you feeling hollow.
@@ -1366,9 +1439,9 @@ Still, she is kind of a witch
     You end up studying magic at the school, as no pedestrian cures seem to work.
     Becoming a professor was the only logical choice after the months of studying that you ended up accomplishing.
     <<endif>> 
-    Children had ended up being kidnapped more as protection after showing magical prowess to avoid persecution.
-    Granted, it wasn't a guarantee children would survive magical training, but there was only so much that could be done, and some of the witches you've conversed with might *like* to eat the children that don't make it, they more or less get them from *questionably* humane sources.
-    Witches turned out not be inherently bad, just had some bad practices.
+    Children had ended up being kidnapped, more as protection after showing magical prowess to avoid persecution rather.
+    Granted, it wasn't a guarantee that children would survive magical training, but there was only so much that could be done, and while some of the witches you've conversed with might *like* to eat the children that don't make it, they more or less get them from *questionably* humane sources.
+    Witches turned out not be inherently bad... just had some bad practices.
     <<if $duckGet>> 
     After more or less becoming one yourself, you've worked to create more understanding of moral practices to witches. But they're not very receptive, they kinda do witch-ever they want.
     <<endif>> 
@@ -1382,23 +1455,26 @@ Still, she is kind of a witch
 title: secondStage
 tags: 
 colorID: 0
-position: 2014,2001
+position: 1999,1833
 ---
 <<setDialogue BattleManager JayeWitch>> 
 "Fool! You thought that was the real battle? Didn't you think it was weird that it wasn't a BossBattle sequence?"
 "God, you really are dumb. I'm tired of playing around, prepared to get you a$$ kicked"
 <<setEnemy BattleManager BossJaye>> 
 <<nextRoom ClickManager endScene>> 
+<<changeBackground BackgroundManager hell>> 
 [[BossBattle]]
 ===
 title: credits
 tags: 
 colorID: 0
-position: 2767,2091
+position: 2764,2089
 ---
-Thanks for playing! Here are the credits (in no particular order)! Refresh page to try and get different rooms and endings!
+<<playMusic MusicManager silly>> 
+<<nextRoom >> 
+Thanks for playing! Here are the credits (in no particular order)! Refresh the page to try to get different rooms and endings!!
 ->Jayelyn
-    Main Story Writer -Lost and Found side-quest -Sensei boss ,Head Witch
+    Main Story Writer - Lost and Found side-quest, Sensei boss, Head Witch
     [[credits]]
 ->Peyton
     Story Writer/Artist - Teacher's Quiz floor
@@ -1413,64 +1489,95 @@ Thanks for playing! Here are the credits (in no particular order)! Refresh page 
     Story Writer - Clown College
     [[credits]]
 ->MORE
-    ->Ryan
-        Story Writer/Artist - Room of Reflections
-        [[credits]]
-    ->Ember
-        Story Writer/Artist - The Cathedral of Lary
-        [[credits]]
-    ->Blanca
-        Artist - Lost and Found side-quest
-        [[credits]]
-    ->Carolyn
-        Final Boss Artist
-        [[credits]]
-    ->Cass
-        Battle System Idea Generation
-        [[credits]]
-    ->MORE
-        ->Julian
-            Mechanic Collaboration
-            [[credits]]
-        ->Jonny
-            Story Collaborator
-            [[credits]]
-        ->Jamie(s)
-            Story Consultation
-            [[credits]]
-        ->Cast of Duck Beach Sports
-            Duck Cameos
-            [[credits]]
-        ->Wander
-            Everything else mostly
-            [[credits]]
-        ->Special Thanks
-            ->Sensei
-                Letting us use his likeness again
-                [[credits]]
-            ->Yarn Spinner
-                OpenSource Text Adventrue Framework
-                [[credits]]
-            ->FreeRangeStock.com 
-                Filling in the art gaps
-                [[credits]]
-            ->FreeMusicArchive.org
-                Adding spice to our simple text adventure
-                [[credits]]
-            -> AND YOU!
-                Thanks tremendously for getting this far!
-                [[credits]]
+    [[ more ]]
 ===
 title: Opening
 tags: 
 colorID: 2
 position: 1308,2279
 ---
+<<playMusic MusicManager theme>> 
 Hansel and Gretel are two of your average kids. Except they've been through some tough witch-related times, but have become stronger for it!  
-They're now a duo of kick-a$$ witch hunter on the search to find and defeat any other child-eating witches in the world. Rumor has it that there is castle filled to the brim with magic. 
+They're now a duo of kick-a$$ witch hunters on the search to find and defeat any other child-eating witches in the world. Rumor has it that there is  a castle filled to the brim with magic. 
 The headmistress of this castle has been running a school out of her castle to help fuel her appetite for kiddos. Sounds like the perfect job for our duo. 
 When approaching the castle, they encounter a magical barrier. Luckily there's a weak point around the back of the grounds. Breaking through this should be no problem! 
 Unfortunately for our heroes, it was all a trap; the floor gives out underneath them and they slide down into the deepest part of what seems to be a cellar. Looks like they might need our help.
 <<setCharacterSelect ClickManager>>
 <<setContinue ClickManager false>>
+===
+title: more
+tags: 
+colorID: 0
+position: 3400,2382
+---
+->Ryan
+        Story Writer/Artist - Room of Reflections
+        [[more]]
+    ->Ember
+        Story Writer/Artist - The Cathedral of Lary
+        [[more]]
+    ->Blanca
+        Artist - Lost and Found side-quest
+        [[more]]
+    ->Carolyn
+        Final Boss Artist
+        [[more]]
+    ->Cass
+        Battle System Idea Generation
+        [[more]]
+    ->MORE
+        [[more2 ]]
+===
+title: more2
+tags: 
+colorID: 0
+position: 3778,2427
+---
+->Julian
+    Mechanic Collaboration, Music Investigation
+    [[more2]]
+->Jonny
+    Story Collaborator
+    [[more2]]
+->Jamie(s)
+    Story Consultation
+    [[more2]]
+->Jasmine
+    Punctiation Sherrif (don't blame them I didn't listen to all of it)
+    [[more2]]
+->annabel 
+    Typo Police (don't blame them I didn't listen to all of it)
+    [[more2]]
+->MORE
+    [[ more3 ]]
+===
+title: more3
+tags: 
+colorID: 0
+position: 3669,2137
+---
+->Cast of Duck Beach Sports
+    Duck Cameos
+    [[more3]]
+->Wander
+    Everything else mostly
+    [[more3]]
+->Special Thanks
+    ->Sensei
+        Letting us use his likeness again
+        [[more3]]
+    ->Yarn Spinner
+        OpenSource Text Adventrue Framework
+        [[more3]]
+    ->FreeRangeStock.com 
+        Filling in the art gaps
+        [[more3]]
+    ->FreeMusicArchive.org
+        Adding spice to our simple text adventure
+        [[more3]]
+    -> AND YOU!
+        Thanks tremendously for getting this far!
+        [[more3]]
+->Credits again
+    [[credits]]
 ===

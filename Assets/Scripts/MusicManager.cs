@@ -23,9 +23,19 @@ public class MusicManager : MonoBehaviour
         {
             case "theme": index = 0;
                 break;
+            case "bossBattle": index = 1;
+                break;
+            case "silly": index = 2;
+                break;
+            case "battle": index = 3;
+                break;
         }
 
-        source.clip = clips[index];
-        source.Play();
+        if(source.clip != clips[index])
+        {
+            source.clip = clips[index];
+            source.Play();
+        }
+
     }
 }

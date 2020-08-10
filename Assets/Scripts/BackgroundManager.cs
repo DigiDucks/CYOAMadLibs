@@ -31,6 +31,20 @@ public class BackgroundManager : MonoBehaviour
                 break;
             case "classroom": index = 6;
                 break;
+            case "mainTunnel": index = 7;
+                break;
+            case "room": index = 8;
+                break;
+            case "outside": index = 9;
+                break;
+            case "door": index = 10;
+                break;
+            case "bedroom": index = 11;
+                break;
+            case "hell": index = 12;
+                break;
+            case "grandHall": index = 13;
+                break;
 
             default: Debug.LogError("Incorrect Background Name called: " + name);
                 return;

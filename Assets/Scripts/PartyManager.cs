@@ -16,6 +16,8 @@ public class PartyManager : MonoBehaviour
 
     public int numberDead = 0;
 
+    public GameObject mainMenu;
+
     Dictionary<string,OCStats> allOCs;
     Dictionary<string, GameObject> inParty = new Dictionary<string, GameObject>();
 
@@ -120,5 +122,20 @@ public class PartyManager : MonoBehaviour
             inParty.Add(charName, objToSpawn);
             objToSpawn.GetComponent<OCStats>().SetStats(stats);
         }
+    }
+
+    public void Leave(string name)
+    {
+        if (inParty.ContainsKey(name))
+        {
+            inParty[name].SetActive(false);
+            inParty.Remove(name);
+        }
+    }
+
+    public void MenuStart()
+    {
+        FindObjectOfType<DialogueRunner>().StartDialogue("Opening");
+        mainMenu.SetActive(false);
     }
 }
